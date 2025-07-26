@@ -1,0 +1,74 @@
+#Day 2 
+Beginner 
+#include <vector>
+#include <string>
+
+using namespace std;
+
+class Solution {
+public:
+    vector<string> fizzBuzz(int n) {
+        vector<string> result;
+        for (int i = 1; i <= n; ++i) {
+            if (i % 15 == 0) {
+                result.push_back("FizzBuzz");
+            } else if (i % 3 == 0) {
+                result.push_back("Fizz");
+            } else if (i % 5 == 0) {
+                result.push_back("Buzz");
+            } else {
+                result.push_back(to_string(i));
+            }
+        }
+        return result;
+    }
+};
+Advanced 1
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        if (!p && !q) return true;
+        if (!p || !q) return false;
+        if (p->val != q->val) return false;
+        return isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
+    }
+};
+Advanced 2
+#include <vector>
+#include <string>
+#include <unordered_map>
+#include <algorithm>
+
+using namespace std;
+
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        unordered_map<string, vector<string>> anagramGroups;
+        
+        for (const string& str : strs) {
+            string key = str;
+            sort(key.begin(), key.end());
+            anagramGroups[key].push_back(str);
+        }
+        
+        vector<vector<string>> result;
+        result.reserve(anagramGroups.size());
+        for (auto& group : anagramGroups) {
+            result.push_back(move(group.second));
+        }
+        
+        return result;
+    }
+};
