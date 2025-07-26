@@ -42,3 +42,40 @@ public:
         return {}; 
     }
 };
+#Day 2 Advanced code 2
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+        // Create a dummy node to handle edge case of head removal
+        ListNode* dummy = new ListNode(0, head);
+        ListNode* prev = dummy;
+        ListNode* curr = head;
+        
+        while (curr) {
+            if (curr->val == val) {
+                // Skip the current node
+                prev->next = curr->next;
+                delete curr;  // Free memory (optional depending on problem constraints)
+                curr = prev->next;
+            } else {
+                // Move both pointers forward
+                prev = curr;
+                curr = curr->next;
+            }
+        }
+        
+        ListNode* newHead = dummy->next;
+        delete dummy;  // Free the dummy node
+        return newHead;
+    }
+};
